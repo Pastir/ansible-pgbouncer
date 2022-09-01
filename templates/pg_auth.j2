@@ -1,0 +1,5 @@
+{% for i in postgresql_db_user -%}
+{% if i.pgbouncer is defined %}
+"{{ i.role }}" "md5{{ (i.passwd + i.role)|hash('md5') }}" ""
+{% endif %}
+{% endfor %}

@@ -1,0 +1,12 @@
+---
+__pgbouncer_version: "11"
+__pgbouncer_config_dir: "/etc/pgbouncer"
+__pgbouncer_config_path: "{{ __pgbouncer_config_dir }}/pgbouncer.ini"
+__pgbouncer_pg_auth: "{{ __pgbouncer_config_dir }}/pg_auth"
+__pgbouncer_port: 6432
+__postgresql_port: 5432
+__pgbouncer_daemon: pgbouncer
+__pgbouncer_listen_addr: "*"
+__pgbouncer_unix_socket_dir: /tmp
+__pgbouncer_logfile: /var/log/postgresql/pgbouncer.log
+__pgbouncer_pidfile: /var/run/postgresql/pgbouncer.pid

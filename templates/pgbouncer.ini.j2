@@ -1,0 +1,61 @@
+[databases]
+{% for i in postgresql_db_user -%}
+{% if i.pgbouncer is defined %}
+{{ i.dbname }} = host={{ postgresql_db_host }} port={{ postgresql_db_port }} user={{ i.role }} password={{ i.passwd }}
+{% endif %}
+{% endfor %}
+
+[pgbouncer]
+ignore_startup_parameters = extra_float_digits
+logfile = {{ pgbouncer_logfile }}
+pidfile = {{ pgbouncer_pidfile }}
+
+listen_addr = {{ pgbouncer_listen_addr }}
+listen_port = {{ pgbouncer_port }}
+
+unix_socket_dir = {{ pgbouncer_unix_socket_dir }}
+;unix_socket_mode = 0777
+;unix_socket_group =
+
+auth_type = md5
+auth_file = {{ pgbouncer_pg_auth }}
+
+admin_users = postgres
+stats_users = stats, postgres
+pool_mode = session
+server_reset_query = DISCARD ALL
+server_check_query = select 1
+server_check_delay = 30
+max_client_conn = 400
+default_pool_size = 700
+
+reserve_pool_size = 1
+reserve_pool_timeout = 1
+
+
+log_connections = 0
+log_disconnections = 0
+log_pooler_errors = 1
+
+server_lifetime = 120
+;server_idle_timeout = 60
+server_connect_timeout = 15
+;server_login_retry = 15
+;query_timeout = 0
+query_wait_timeout = 10
+;client_idle_timeout = 0
+;client_login_timeout = 60
+; autodb_idle_timeout = 3600
+pkt_buf = 8192
+
+listen_backlog = 1024
+
+;tcp_defer_accept = 0
+;tcp_socket_buffer = 0
+tcp_keepalive = 1
+;tcp_keepcnt = 0
+tcp_keepidle = 600
+;tcp_keepintvl = 0
+
+;dns_max_ttl = 15
+;dns_zone_check_period = 0

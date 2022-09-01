@@ -1,0 +1,21 @@
+---
+galaxy_info:
+  author: Pastir Ivan
+  description: Install Pgbouncer
+  role_name: pgbouncer
+
+  license: Apache License, Version 2.0
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+
+  galaxy_tags:
+    - pgbouncer
+    - opensource
+    - install
+
+dependencies: []

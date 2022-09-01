@@ -1,0 +1,9 @@
+---
+
+- name: installing required packages
+  apt:
+    name: "{{ pgbouncer_packages }}"
+    state: present
+  tags:
+    - install
+

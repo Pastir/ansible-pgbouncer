@@ -1,0 +1,6 @@
+---
+pgbouncer_listen_addresses: '*'
+pgbouncer_port: 6432
+pgbouncer_max_connections: 100
+pgbouncer_logfile: /var/log/postgresql/pgbouncer.log
+pgbouncer_pidfile: /var/run/postgresql/pgbouncer.pid

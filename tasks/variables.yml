@@ -1,0 +1,55 @@
+---
+
+- name: Include Ubuntu variables.
+  include_vars: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '20'
+
+- name: Define postgresql_version.
+  set_fact:
+    pgbouncer_version: "{{ __pgbouncer_version }}"
+  when: pgbouncer_version is not defined
+
+- name: Define pgbouncer_daemon.
+  set_fact:
+    pgbouncer_daemon: "{{ __pgbouncer_daemon }}"
+  when: pgbouncer_daemon is not defined
+
+- name: Define pgbouncer_config_path.
+  set_fact:
+    pgbouncer_config_path: "{{ __pgbouncer_config_path }}"
+  when: pgbouncer_config_path is not defined
+
+- name: Define pgbouncer_pg_auth.
+  set_fact:
+    pgbouncer_pg_auth: "{{ __pgbouncer_pg_auth }}"
+  when: pgbouncer_pg_auth is not defined
+
+- name: Define pgbouncer_port.
+  set_fact:
+    pgbouncer_port: "{{ __pgbouncer_port }}"
+  when: pgbouncer_port is not defined
+
+- name: Define postgresql_port.
+  set_fact:
+    postgresql_port: "{{ __postgresql_port }}"
+  when: postgresql_port is not defined
+
+- name: Define pgbouncer_listen_addr.
+  set_fact:
+    pgbouncer_listen_addr: "{{ __pgbouncer_listen_addr }}"
+  when: pgbouncer_listen_addr is not defined
+
+- name: Define pgbouncer_unix_socket_dir.
+  set_fact:
+    pgbouncer_unix_socket_dir: "{{ __pgbouncer_unix_socket_dir }}"
+  when: pgbouncer_unix_socket_dir is not defined
+
+- name: Define pgbouncer_logfile.
+  set_fact:
+    pgbouncer_logfile: "{{ __pgbouncer_logfile }}"
+  when: pgbouncer_logfile is not defined
+
+- name: Define pgbouncer_pidfile.
+  set_fact:
+    pgbouncer_pidfile: "{{ __pgbouncer_pidfile }}"
+  when: pgbouncer_pidfile is not defined
