@@ -2,7 +2,7 @@
 - name: Configure pgbouncer.ini
   template:
     src: "pgbouncer.ini.j2"
-    dest: "{{ pgbouncer_config_path }}"
+    dest: "{{ pgbouncer_config_path | default(__pgbouncer_config_path) }}"
     owner: postgres
     group: root
     mode: 0640
@@ -10,14 +10,10 @@
 - name: Configure pgbouncer pg_auth
   template:
     src: "pg_auth.j2"
-    dest: "{{ pgbouncer_pg_auth }}"
+    dest: "{{ pgbouncer_pg_auth | default(__pgbouncer_pg_auth) }}"
     owner: postgres
     group: root
     mode: 0640
+  notify: restart pgbouncer
 
-- name: restart pgbouncer
-  service:
-    name: "{{ pgbouncer_daemon }}"
-    state: restarted
-    sleep: 5
 

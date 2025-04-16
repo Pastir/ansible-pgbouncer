@@ -1,6 +1,5 @@
 ---
 - name: restart pgbouncer
-  service:
-    name: "{{ pgbouncer_daemon }}"
+  ansible.builtin.systemd:
+    name: "{{ pgbouncer_daemon | default(__pgbouncer_daemon) }}"
     state: restarted
-    sleep: 5

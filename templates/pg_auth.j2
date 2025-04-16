@@ -1,4 +1,4 @@
-{% for i in postgresql_db_user -%}
+{% for i in postgresql_db_users -%}
 {% if i.pgbouncer is defined %}
 "{{ i.role }}" "md5{{ (i.passwd + i.role)|hash('md5') }}" ""
 {% endif %}
