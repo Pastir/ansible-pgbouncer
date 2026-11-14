@@ -1,3 +1,4 @@
+{{ ansible_managed | comment(decoration='; ') }}
 [databases]
 {% for i in postgresql_db_users -%}
 {% if i.pgbouncer is defined %}
