@@ -1,4 +1,15 @@
-__pgbouncer_version: "11"
+---
+# Package version, e.g. "1.26.1" (upstream part, the Debian revision is matched by a wildcard).
+# Empty -> whatever apt offers (still held, see pgbouncer_hold).
+# The package comes from the repositories already configured on the host (e.g. apt.postgresql.org).
+pgbouncer_version: ""
+pgbouncer_hold: true
+# Changing the installed version (upgrade or downgrade) restarts pgbouncer and drops client connections.
+# Refused unless this is true.
+pgbouncer_allow_upgrade: false
+# Extra packages installed next to pgbouncer.
+pgbouncer_extra_packages: []
+
 __pgbouncer_config_dir: "/etc/pgbouncer"
 __pgbouncer_config_path: "{{ __pgbouncer_config_dir }}/pgbouncer.ini"
 __pgbouncer_pg_auth: "{{ __pgbouncer_config_dir }}/pg_auth"

@@ -1,9 +1,36 @@
 ---
+- name: Gather installed packages
+  ansible.builtin.package_facts:
+    manager: apt
 
-- name: installing required packages
-  apt:
-    name: "{{ pgbouncer_packages }}"
+- name: Refuse implicit pgbouncer version change
+  ansible.builtin.assert:
+    that:
+      - pgbouncer_allow_upgrade or ansible_facts.packages['pgbouncer'][0].version is match((pgbouncer_version | regex_escape) ~ '-')
+    fail_msg: >-
+      pgbouncer {{ ansible_facts.packages['pgbouncer'][0].version }} is installed but {{ pgbouncer_version }} is required.
+      Re-run with -e pgbouncer_allow_upgrade=true (pgbouncer restarts, client connections are dropped).
+    quiet: true
+  when:
+    - pgbouncer_version | length > 0
+    - "'pgbouncer' in ansible_facts.packages"
+
+- name: Install pgbouncer
+  ansible.builtin.apt:
+    name: "{{ ['pgbouncer=' ~ pgbouncer_version ~ '-*' if pgbouncer_version | length > 0 else 'pgbouncer'] + pgbouncer_extra_packages }}"
     state: present
+    update_cache: true
+    cache_valid_time: 3600
+    allow_change_held_packages: true
+    allow_downgrade: "{{ pgbouncer_allow_upgrade }}"
+  notify: restart pgbouncer
   tags:
     - install
 
+- name: Hold pgbouncer
+  ansible.builtin.dpkg_selections:
+    name: pgbouncer
+    selection: hold
+  when: pgbouncer_hold and not ansible_check_mode
+  tags:
+    - install

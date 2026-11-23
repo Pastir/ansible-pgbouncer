@@ -6,6 +6,8 @@
     owner: postgres
     group: root
     mode: 0640
+  # listen_*, unix socket and pool settings need a restart; restart covers every option.
+  notify: restart pgbouncer
 
 - name: Configure pgbouncer pg_auth
   template:
@@ -14,6 +16,5 @@
     owner: postgres
     group: root
     mode: 0640
-  notify: restart pgbouncer
-
-
+  # auth_file is re-read on reload, client connections are kept.
+  notify: reload pgbouncer
